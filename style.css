@@ -1,26 +1,26 @@
 div#calculatorBody {
-  width: 600px;
+  width: 500px;
   height: 600px;
   background-color: rgb(155, 169, 182);
   padding: 10px;
 }
 
 div#display {
-  width: 500px;
+  width: 440px;
   height: 100px;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
-  margin: 10px 40px;
+  margin: 10px 20px;
 }
 
 .btn {
   padding: 20px;
-  margin: 20px;
+  margin: 15px 20px;
   border-radius: 20px;
-  width: 100px;
+  width: 80px;
 }
 
 #clear-btn,
 #delete-btn {
-  width: 250px;
+  width: 200px;
 }
