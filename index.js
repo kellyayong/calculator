@@ -1,22 +1,22 @@
-
+let total = 0;
 // operation functions
 function add(a,b) {
-    let total = a+b;
+    total = a+b;
     console.log('total: ', total);
     return total;
 }
 function minus(a,b) {
-    let total = a-b;
+    total = a-b;
     console.log('total: ', total);
     return total;
 } 
 function times(a,b) {
-    let total = a*b;
+    total = a*b;
     console.log('total: ', total);
     return total;
 } 
 function divide(a,b) {
-    let total = a/b;
+    total = a/b;
     console.log('total: ', total);
     return total;
 } 
@@ -31,6 +31,14 @@ function updateDisplay() {
     const divDisplay = document.querySelector('#divDisplay');
     const paraDisplay = document.querySelector('#paraDisplay');
     paraDisplay.innerText = displayNumber;
+    console.log('paraDisplay.innerText : ', paraDisplay.innerText);
+    divDisplay.appendChild(paraDisplay);
+}
+// function - update display number
+function displayTotal() {
+    const divDisplay = document.querySelector('#divDisplay');
+    const paraDisplay = document.querySelector('#paraDisplay');
+    paraDisplay.innerText = total;
     console.log('paraDisplay.innerText : ', paraDisplay.innerText);
     divDisplay.appendChild(paraDisplay);
 }
