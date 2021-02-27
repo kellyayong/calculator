@@ -20,7 +20,7 @@ div#display {
   width: 80px;
 }
 
-#clear-btn,
-#delete-btn {
+#clear,
+#delete {
   width: 200px;
 }
