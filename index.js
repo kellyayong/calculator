@@ -26,6 +26,20 @@ let firstNumber = '';
 let nextNumber = '';
 let displayNumber = '';
 
+// function - update display number
+function updateDisplay() {
+    const divDisplay = document.querySelector('#divDisplay');
+    const paraDisplay = document.querySelector('#paraDisplay');
+    paraDisplay.innerText = displayNumber;
+    console.log('paraDisplay.innerText : ', paraDisplay.innerText);
+    divDisplay.appendChild(paraDisplay);
+}
+
+// function - clear display
+function clearDisplay() {
+
+}
+
 // DOM - number buttons
 const numbers = document.querySelectorAll('.number-btn');
 numbers.forEach(number => {
@@ -35,6 +49,7 @@ numbers.forEach(number => {
 function concatNumbers(e) {
     displayNumber += + e.target.innerText;
     console.log('displayNumber: '+displayNumber);
+    updateDisplay();
     return displayNumber;
 }
 

@@ -5,12 +5,17 @@ div#calculatorBody {
   padding: 10px;
 }
 
-div#display {
+div#divDisplay {
   width: 440px;
   height: 100px;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   margin: 10px 20px;
+}
+
+p#paraDisplay {
+  padding: 40px;
+  text-align: right;
 }
 
 .btn {
