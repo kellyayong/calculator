@@ -4,7 +4,6 @@ function add(a,b) {
     a = Number(a);
     b = Number(b);
     total = a+b;
-    console.log(a+'+'+b);
     console.log('total: ', total);
     return total;
 }
@@ -12,7 +11,6 @@ function minus(a,b) {
     a = Number(a);
     b = Number(b);
     total = a-b;
-    console.log(a+'-'+b);
     console.log('total: ', total);
     return total;
 } 
@@ -20,7 +18,6 @@ function times(a,b) {
     a = Number(a);
     b = Number(b);
     total = a*b;
-    console.log(a+'*'+b);
     console.log('total: ', total);
     return total;
 } 
@@ -28,25 +25,29 @@ function divide(a,b) {
     a = Number(a);
     b = Number(b);
     total = a/b;
-    console.log(a+'/'+b);
     console.log('total: ', total);
     return total;
 } 
+
+// Numbers to be operated on
+let firstNumber = '';
+let secondNumber = '';
+let displayNumber = '';
 
 // function - update display number
 function updateDisplay() {
     const divDisplay = document.querySelector('#divDisplay');
     const paraDisplay = document.querySelector('#paraDisplay');
+    displayNumber = Number(displayNumber);
     paraDisplay.innerText = displayNumber;
-    console.log('displayNumber: ', paraDisplay.innerText);
     divDisplay.appendChild(paraDisplay);
 }
-// function - update display number
+// function - display total number
 function displayTotal() {
     const divDisplay = document.querySelector('#divDisplay');
     const paraDisplay = document.querySelector('#paraDisplay');
+    total = Number(total);
     paraDisplay.innerText = total;
-    console.log('total: ', paraDisplay.innerText);
     divDisplay.appendChild(paraDisplay);
 }
 
@@ -60,17 +61,27 @@ function clearDisplay() {
     const paraDisplay = document.querySelector('#paraDisplay');
     firstNumber = '';
     secondNumber = '';
-    displayNumber = '';
+    displayNumber = 0;
     paraDisplay.innerText = displayNumber;
-    console.log('paraDisplay.innerText=displayNumber: ', paraDisplay.innerText);
+    console.log('cleardisplay ', paraDisplay.innerText);
+    displayNumber = '';
     divDisplay.appendChild(paraDisplay);
     operator = 'plus';
 }
 
-// Numbers to be operated on
-let firstNumber = '';
-let secondNumber = '';
-let displayNumber = '';
+// DOM - delete button
+const deleteBtn = document.querySelector('#delete');
+deleteBtn.addEventListener('click', backSpace);
+
+function backSpace() {
+    const divDisplay = document.querySelector('#divDisplay');
+    const paraDisplay = document.querySelector('#paraDisplay');
+    const paraArray = Array.from(paraDisplay.innerText);
+    paraArray.splice(-1,1)
+    paraDisplay.innerText = paraArray.join('');
+    divDisplay.appendChild(paraDisplay);
+    displayNumber = paraDisplay.innerText;
+}
 
 // DOM - number buttons
 const numbers = document.querySelectorAll('.number-btn');
@@ -79,14 +90,15 @@ numbers.forEach(number => {
 });
 
 function concatNumbers(e) {
-    displayNumber = displayNumber + e.target.innerText;
+    displayNumber += e.target.innerText;
+    console.log('displayNumber: '+displayNumber);
     updateDisplay();
-    console.log(updateDisplay());
     return displayNumber;
 }
 
 // operator variables - add (default), minus, times, divide
-let operator = 'plus';
+let oldOperator = '';
+let operator = '';
 let newOperator = '';
 
 // DOM - operator buttons
@@ -99,75 +111,51 @@ function selectOperator(e) {
     newOperator = e.target.id;
     console.log('operator: '+operator);
     console.log('newOperator: ', newOperator);
+    secondNumber = displayNumber;
+    console.log('2nd=display: '+secondNumber);
     operate();
-    console.log(operate());
+    displayNumber = 0;
+    console.log('displaynumber: '+ displayNumber);
 }
 
-// operate function
 function operate() {
-    switch (operator) {
-        case 'plus':
-            console.log('case:plus');
-            console.log('1st#,2nd: '+firstNumber,secondNumber);
-            secondNumber = displayNumber;
-            add(firstNumber,secondNumber);
-            displayTotal();
-            firstNumber = total;
-            displayNumber = '';
-            if(newOperator!=='equal') {
-                operator = newOperator;
-            };
-            console.log('op,newOp: '+operator,newOperator);
-            break;
-        case 'minus':
-            console.log('case:minus');
-            console.log('1st#,2nd: '+firstNumber,secondNumber);
-            secondNumber = displayNumber;
-            minus(firstNumber,secondNumber);
-            displayTotal();
-            firstNumber = total;
-            displayNumber = '';
-            if(newOperator!=='equal') {
-                operator = newOperator;
-            };
-            console.log('op,newOp: '+operator,newOperator);
-            break;
-        case 'times':
-            console.log('case:times');
-            console.log('1st#,2nd: '+firstNumber,secondNumber);
-            secondNumber = displayNumber;
-            times(firstNumber,secondNumber);
-            displayTotal();
-            firstNumber = total;
-            displayNumber = '';
-            if(newOperator!=='equal') {
-                operator = newOperator;
-            };
-            console.log('op,newOp: '+operator,newOperator);
-            break;
-        case 'divide':
-            console.log('case:divide');
-            console.log('1st#,2nd: '+firstNumber,secondNumber);
-            secondNumber = displayNumber;
-            divide(firstNumber,secondNumber);
-            displayTotal();
-            firstNumber = total;
-            displayNumber = '';
-            if(newOperator!=='equal') {
-                operator = newOperator;
-            };
-            console.log('op,newOp: '+operator,newOperator);
-            break;
-        case 'equal':
-            console.log('case:equal');
-            console.log('1st#,2nd: '+firstNumber,secondNumber);
-            secondNumber = displayNumber;
-            displayTotal();
+    if(operator=='plus') {
+        add(firstNumber,secondNumber);
+        displayTotal();
+        firstNumber = total;
+        oldOperator = operator;
+        operator = newOperator;
+    } else if(operator=='minus') {
+        minus(firstNumber,secondNumber);
+        displayTotal();
+        firstNumber = total;
+        oldOperator = operator;
+        operator = newOperator;
+    } else if(operator=='times') {
+        times(firstNumber,secondNumber);
+        displayTotal();
+        firstNumber = total;
+        oldOperator = operator;
+        operator = newOperator;
+    } else if(operator=='divide') {
+        divide(firstNumber,secondNumber);
+        displayTotal();
+        firstNumber = total;
+        oldOperator = operator;
+        operator = newOperator;
+    } else if(operator=='equal') {
+        if(newOperator == 'equal') {
+            operator = oldOperator;
             firstNumber = total;
             operate();
-            console.log('op,newOp: '+operator,newOperator);
-            break;
-        case '':
+        } else {
+            firstNumber = total;
+            oldOperator = operator;
             operator = newOperator;
-    };
+        }
+    } else if(operator=='') {
+        firstNumber = displayNumber;
+        oldOperator = operator;
+        operator = newOperator;
+    }
 }
