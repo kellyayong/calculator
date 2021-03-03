@@ -162,3 +162,21 @@ function operate() {
         operator = newOperator;
     }
 }
+
+// DOM - point button
+const point = document.querySelector('#point');
+point.addEventListener('click', addPoint);
+
+function addPoint() {
+    const divDisplay = document.querySelector('#divDisplay');
+    const paraDisplay = document.querySelector('#paraDisplay');
+    const paraArray = Array.from(paraDisplay.innerText);
+    if(paraArray.includes('.')) {
+        displayNumber = paraDisplay.innerText;
+    } else {
+        paraArray.push('.');
+        paraDisplay.innerText = paraArray.join('');
+        divDisplay.appendChild(paraDisplay);
+        displayNumber = paraDisplay.innerText; 
+    }
+}
