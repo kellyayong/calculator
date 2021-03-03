@@ -51,6 +51,17 @@ function displayTotal() {
     divDisplay.appendChild(paraDisplay);
 }
 
+// function - display error
+function displayError() {
+    const divDisplay = document.querySelector('#divDisplay');
+    const paraDisplay = document.querySelector('#paraDisplay');
+    displayNumber = 'ERROR';
+    paraDisplay.innerText = displayNumber;
+    divDisplay.appendChild(paraDisplay);
+    total = Number(total);
+    displayNumber = secondNumber;
+}
+
 // DOM - clear button
 const clear = document.querySelector('#clear');
 clear.addEventListener('click', clearDisplay);
@@ -110,7 +121,7 @@ operators.forEach(operator => {
 function selectOperator(e) {
     newOperator = e.target.id;
     console.log('operator: '+operator);
-    console.log('newOperator: ', newOperator);
+    console.log('newOperator: ', newOperator); 
     secondNumber = displayNumber;
     console.log('2nd=display: '+secondNumber);
     operate();
@@ -138,11 +149,17 @@ function operate() {
         oldOperator = operator;
         operator = newOperator;
     } else if(operator=='divide') {
-        divide(firstNumber,secondNumber);
-        displayTotal();
-        firstNumber = total;
-        oldOperator = operator;
-        operator = newOperator;
+        if(secondNumber==0) {
+            displayError();
+            console.log('total'+total);
+            operator = '';
+        } else {
+            divide(firstNumber,secondNumber);
+            displayTotal();
+            firstNumber = total;
+            oldOperator = operator;
+            operator = newOperator;
+        }
     } else if(operator=='equal') {
         if(newOperator == 'equal') {
             operator = oldOperator;
