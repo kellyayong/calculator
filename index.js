@@ -47,8 +47,16 @@ function displayTotal() {
     const divDisplay = document.querySelector('#divDisplay');
     const paraDisplay = document.querySelector('#paraDisplay');
     total = Number(total);
+    if(isFloat(total)) {
+        total = (Math.round(total * 10) / 10).toFixed(1);
+    };
     paraDisplay.innerText = total;
     divDisplay.appendChild(paraDisplay);
+}
+
+// function - check if number is float
+function isFloat(n) {
+    return n === +n && n !== (n|0);
 }
 
 // function - display error
