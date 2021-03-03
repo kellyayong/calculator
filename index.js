@@ -149,6 +149,9 @@ function operate() {
             firstNumber = total;
             operate();
         } else {
+            if(displayNumber!==0) {
+                total = displayNumber;
+            }
             firstNumber = total;
             oldOperator = operator;
             operator = newOperator;
